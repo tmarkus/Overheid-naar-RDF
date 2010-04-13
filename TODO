@@ -1,16 +1,23 @@
 Volkomen ongesorteerd prioriteitenlijstje voor functionaliteit:
 
-- function van document XML url -> Hashmap met URIs voor de kamerleden
-- URL aanpassen naar recente documenten en de volgende pagina's openen totdat er geen hyperlinks meer opstaan
 - De query voor de url van de bekendmakingen parameteriseren
+
+Easy:
+- Bug fixen met genereren Uri voor ikregeer misschien dat deze alleen kamervragen met antwoord heeft?
+- extractie van vraagstellend kamerlid alleen binnen de eerste paragraaf doen 
+- Matchen van naam aan kamerlid functie verbeteren (ook kunnen omgaan met voornaam+achteraanm combo's)
+
+Ikregeer.nl:
+- Alle kamersamenstellingen opvragen met een bepaald datumbereik (ikregeer)
+- Start en einddatum van kamerlid toevoegen
+- Korte versie van partijnaam toevoegen (handmatig?)
+
+
+Misc:
+- function van document XML url -> Hashmap met URIs voor de kamerleden
+- URL aanpassen naar recente documenten en de volgende pagina's openen totdat er geen hyperlinks meer opstaan (crawling verbetering)
 - Parameter toevoegen voor soort documenten (kamervragen)
 - Extraheren aan wie de vraag gesteld is (premier minister staatssecretaris etc)
-- Matchen van naam aan kamerlid functie verbeteren
-- Start en einddatum van kamerlid toevoegen
-- Alle kamersamenstellingen opvragen met een bepaald datumbereik
-- Korte versie van partijnaam toevoegen
 - Presentielijsten van de kamerhandelingen kunnen parsen
-- Categorie‘n van ikregeer koppelen aan kamerstukken
-- Bug fixen met genereren Uri voor ikregeer misschien dat deze alleen kamervragen met antwoord heeft?
-- Linkjes naar profielen volksvertegenwoordigers toevoegen
-- extractie van vraagstellend kamerlid alleen binnen de eerste paragraaf doen 
+- Stemmingsuitslagen kamer kunnen inlezen en verwerken (alles: moties, wetsvoorstellen, etc)
+- Linkjes naar profielen volksvertegenwoordigers toevoegen (150vertegenwoordigers.nl, foaf:Site oid, persoonlijke site?)
