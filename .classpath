@@ -28,5 +28,6 @@
 	<classpathentry kind="lib" path="libs/xercesImpl-2.7.1.jar"/>
 	<classpathentry kind="lib" path="libs/jtidy-r938.jar"/>
 	<classpathentry kind="lib" path="libs/jaxen-1.1.2.jar"/>
+	<classpathentry kind="lib" path="libs/joda-time-1.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -17,6 +17,7 @@ import javax.xml.xpath.XPathFactory;
 
 import org.jaxen.JaxenException;
 import org.jaxen.dom.DOMXPath;
+import org.joda.time.DateTime;
 import org.openrdf.model.Resource;
 import org.openrdf.model.URI;
 import org.openrdf.model.ValueFactory;
@@ -68,8 +69,41 @@ public class Bekendmakingen {
 		parser.setInputEncoding("UTF-8");
 	}
 
-
+	/**
+	 * Retrieve documents for the past week by default
+	 * @throws URISyntaxException
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws XPathExpressionException
+	 * @throws JaxenException
+	 * @throws RepositoryException
+	 */
+	
 	public void update() throws URISyntaxException, IOException, SAXException, XPathExpressionException, JaxenException, RepositoryException
+	{
+		//create date object representing NOW
+		DateTime now = new DateTime();
+		
+		// create date object representing 1 week or something back
+		DateTime past = new DateTime();
+		past.minusWeeks(1);
+		
+		update(past, now);
+	}
+	
+	/**
+	 * Retrieve documents in the specified date range
+	 * @param startDate
+	 * @param endDate
+	 * @throws URISyntaxException
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws XPathExpressionException
+	 * @throws JaxenException
+	 * @throws RepositoryException
+	 */
+
+	public void update(DateTime startDate, DateTime endDate) throws URISyntaxException, IOException, SAXException, XPathExpressionException, JaxenException, RepositoryException
 	{
 		InputStream in = new URL( "https://zoek.officielebekendmakingen.nl/zoeken/resultaat/?zkt=Uitgebreid&pst=ParlementaireDocumenten&dpr=Alle&kmr=EersteKamerderStatenGeneraal|TweedeKamerderStatenGeneraal|VerenigdeVergaderingderStatenGeneraal&sdt=KenmerkendeDatum&par=Kamervragenzonderantwoord&dst=Onopgemaakt|Opgemaakt|Opgemaakt+na+onopgemaakt&isp=true&pnr=1&rpp=10&_page=3&sorttype=1&sortorder=4").openStream();
 
