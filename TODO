@@ -1,6 +1,6 @@
 Volkomen ongesorteerd prioriteitenlijstje voor functionaliteit:
 
-- De query voor de url van de bekendmakingen parameteriseren
+- De query voor de url van de bekendmakingen parameteriseren (datum gedaan, voor beperkt bereik)
 
 Easy:
 - Bug fixen met genereren Uri voor ikregeer misschien dat deze alleen kamervragen met antwoord heeft?

@@ -18,6 +18,8 @@ import javax.xml.xpath.XPathFactory;
 import org.jaxen.JaxenException;
 import org.jaxen.dom.DOMXPath;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.openrdf.model.Resource;
 import org.openrdf.model.URI;
 import org.openrdf.model.ValueFactory;
@@ -86,7 +88,7 @@ public class Bekendmakingen {
 		
 		// create date object representing 1 week or something back
 		DateTime past = new DateTime();
-		past.minusWeeks(1);
+		past = past.minusWeeks(1);
 		
 		update(past, now);
 	}
@@ -105,7 +107,13 @@ public class Bekendmakingen {
 
 	public void update(DateTime startDate, DateTime endDate) throws URISyntaxException, IOException, SAXException, XPathExpressionException, JaxenException, RepositoryException
 	{
-		InputStream in = new URL( "https://zoek.officielebekendmakingen.nl/zoeken/resultaat/?zkt=Uitgebreid&pst=ParlementaireDocumenten&dpr=Alle&kmr=EersteKamerderStatenGeneraal|TweedeKamerderStatenGeneraal|VerenigdeVergaderingderStatenGeneraal&sdt=KenmerkendeDatum&par=Kamervragenzonderantwoord&dst=Onopgemaakt|Opgemaakt|Opgemaakt+na+onopgemaakt&isp=true&pnr=1&rpp=10&_page=3&sorttype=1&sortorder=4").openStream();
+		DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
+		
+		String url = "https://zoek.officielebekendmakingen.nl/zoeken/resultaat/?zkt=Uitgebreid&pst=ParlementaireDocumenten&dpr=AnderePeriode&spd="+startDate.toString(fmt)+"&epd="+endDate.toString(fmt)+"&kmr=EersteKamerderStatenGeneraal|TweedeKamerderStatenGeneraal|VerenigdeVergaderingderStatenGeneraal&sdt=KenmerkendeDatum&par=AanhangselvandeHandelingen|Kamervragenzonderantwoord&dst=Opgemaakt|Opgemaakt+na+onopgemaakt&isp=true&pnr=1&rpp=10";
+		
+		System.out.println(url);
+		
+		InputStream in = new URL(url).openStream();
 
 		Tidy parser = new Tidy(); // obtain a new Tidy instance
 		parser.setShowWarnings(false);
