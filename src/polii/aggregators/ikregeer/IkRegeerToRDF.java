@@ -119,6 +119,7 @@ public class IkRegeerToRDF {
 		
 			RepositoryConnection con = myRepository.getConnection();
 
+			//FIXME: hardcoded date for retrieving 2e-kamer-samenstelling
 			String url = "http://api.ikregeer.nl/samenstelling/tweedekamer/2010-04-11" + apikey;
 			String jsonString = getJson(url);
 
@@ -137,11 +138,15 @@ public class IkRegeerToRDF {
 				URI party_uri = new URIImpl("http://rdf.thomasmarkus.nl/politiek/partijen/" + party.replace(" ", "_"));
 				//add some rdf to the repository based on the list item
 				
-				//document title
+				//Person
 				con.add(member_uri, vf.createURI(FOAF.firstName.toString()), vf.createLiteral(firstname), context);
 				con.add(member_uri, vf.createURI(FOAF.surname.toString()), vf.createLiteral(lastname), context);
 				con.add(member_uri, vf.createURI(RDFS.member.toString()), party_uri, context);
+				con.add(member_uri, vf.createURI(RDF.type.toString()), vf.createURI(FOAF.Person.toString()), context);
 
+				//register party as a group (repetitive)
+				con.add(party_uri, vf.createURI(RDF.type.toString()), vf.createURI(FOAF.Group.toString()), context);
+				
 				//execute a sparql query to check if the data is stored in the repository or not
 				//GenericSesameQueryExecutor.runSparqlQuery(myRepository.getConnection(), "");
 

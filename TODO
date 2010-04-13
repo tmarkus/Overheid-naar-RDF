@@ -4,8 +4,6 @@ Volkomen ongesorteerd prioriteitenlijstje voor functionaliteit:
 -- + goede fallback als er geen links meer op de pagina staan
 
 Easy:
-- Personen netjes als rdf:type foaf:Person toevoegen
-- Politieke partijen netjes als rdf:type foaf:Group toevoegen aan repository
 - Bug fixen met genereren Uri voor ikregeer misschien dat deze alleen kamervragen met antwoord heeft?
 - extractie van vraagstellend kamerlid alleen binnen de eerste paragraaf doen 
 - Matchen van naam aan kamerlid functie verbeteren (ook kunnen omgaan met voornaam+achteraanm combo's)
