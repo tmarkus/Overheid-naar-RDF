@@ -108,43 +108,57 @@ public class Bekendmakingen {
 	public void update(DateTime startDate, DateTime endDate) throws URISyntaxException, IOException, SAXException, XPathExpressionException, JaxenException, RepositoryException
 	{
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
-		
-		String url = "https://zoek.officielebekendmakingen.nl/zoeken/resultaat/?zkt=Uitgebreid&pst=ParlementaireDocumenten&dpr=AnderePeriode&spd="+startDate.toString(fmt)+"&epd="+endDate.toString(fmt)+"&kmr=EersteKamerderStatenGeneraal|TweedeKamerderStatenGeneraal|VerenigdeVergaderingderStatenGeneraal&sdt=KenmerkendeDatum&par=AanhangselvandeHandelingen|Kamervragenzonderantwoord&dst=Opgemaakt|Opgemaakt+na+onopgemaakt&isp=true&pnr=1&rpp=10";
-		
-		System.out.println(url);
-		
-		InputStream in = new URL(url).openStream();
 
-		Tidy parser = new Tidy(); // obtain a new Tidy instance
-		parser.setShowWarnings(false);
-		parser.setShowErrors(0);
-		parser.setQuiet(true);
-		parser.setMakeClean(true);
-		Document doc = parser.parseDOM(in, null);
+		boolean getNextPage = true;
+		int page_nr = 0;
 
-		XPathFactory factory = XPathFactory.newInstance();
-		XPath xpath = factory.newXPath();
-		XPathExpression expr  = xpath.compile("//a[@class='hyperlink']");
+		while(getNextPage)
+		{
+			page_nr++;
+			String url = "https://zoek.officielebekendmakingen.nl/zoeken/resultaat/?zkt=Uitgebreid&pst=ParlementaireDocumenten&dpr=AnderePeriode&spd="+startDate.toString(fmt)+"&epd="+endDate.toString(fmt)+"&kmr=EersteKamerderStatenGeneraal|TweedeKamerderStatenGeneraal|VerenigdeVergaderingderStatenGeneraal&sdt=KenmerkendeDatum&par=AanhangselvandeHandelingen|Kamervragenzonderantwoord&dst=Opgemaakt|Opgemaakt+na+onopgemaakt&isp=true&pnr=1&rpp=10&_page="+page_nr+"&sorttype=1&sortorder=4";
 
-		Object result = expr.evaluate(doc, XPathConstants.NODESET);
-		NodeList nodes = (NodeList) result;
+			System.out.println(url);
 
-		for (int i = 0; i < nodes.getLength(); i++) {
-			String link = nodes.item(i).getAttributes().getNamedItem("href").getNodeValue();
+			InputStream in = new URL(url).openStream();
 
-			//extract ID from URL
-			Pattern p = Pattern.compile("/(.*).html");
-			Matcher m = p.matcher(link);
+			Tidy parser = new Tidy(); // obtain a new Tidy instance
+			parser.setShowWarnings(false);
+			parser.setShowErrors(0);
+			parser.setQuiet(true);
+			parser.setMakeClean(true);
+			Document doc = parser.parseDOM(in, null);
 
-			String xml_link = null;
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr  = xpath.compile("//a[@class='hyperlink']");
 
-			if (m.find()) {
-				xml_link = base + m.group(1) + ".xml";
+			Object result = expr.evaluate(doc, XPathConstants.NODESET);
+			NodeList nodes = (NodeList) result;
+
+			for (int i = 0; i < nodes.getLength(); i++) {
+				String link = nodes.item(i).getAttributes().getNamedItem("href").getNodeValue();
+
+				//extract ID from URL
+				Pattern p = Pattern.compile("/(.*).html");
+				Matcher m = p.matcher(link);
+
+				String xml_link = null;
+
+				if (m.find()) {
+					xml_link = base + m.group(1) + ".xml";
+				}
+
+				//call processDocument XML
+				if (xml_link != null) System.out.println(xml_link);
+				processKamervraagXML(xml_link);
 			}
-
-			//call processDocument XML
-			if (xml_link != null) System.out.println(xml_link);
-			processKamervraagXML(xml_link);
+		
+			//stop requesting pages if there are no more useable hyperlinks on it
+			if (nodes.getLength() == 0) {
+				System.out.println("No more useable hyperlinks found! Stopping...");
+				getNextPage = false;
+			}
+		
 		}
 	}
 
