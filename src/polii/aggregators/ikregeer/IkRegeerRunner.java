@@ -29,8 +29,8 @@ public class IkRegeerRunner {
 		
 		bekenmakingen.update();
 		
-		aggregator.updateDocuments();
-		aggregator.updateParliament();
+		//aggregator.updateDocuments();
+		//aggregator.updateParliament();
 		
 	}
 

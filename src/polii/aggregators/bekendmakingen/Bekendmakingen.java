@@ -162,7 +162,7 @@ public class Bekendmakingen {
 		URI ikregeer_uri = vf.createURI(ikregeer_id);
 		
 		//welke achternamen zijn er allemaal?
-		xpath = new DOMXPath("//achternaam");
+		xpath = new DOMXPath("//kamervraagomschrijving/naam/achternaam");
 		List<Node> lastnames = xpath.selectNodes(doc);
 
 		LastNameToPolitician convertor = new LastNameToPolitician();
