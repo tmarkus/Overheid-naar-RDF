@@ -46,7 +46,9 @@ import com.hp.hpl.jena.vocabulary.DC_11;
 import com.hp.hpl.jena.vocabulary.XSD;
 
 import polii.exceptions.ParliamentMemberNotFound;
+import polii.interpreter.placename.PlacenameToURI;
 import polii.interpreter.politician.LastNameToPolitician;
+import utils.convert.geonames.Geonames2RDF;
 import virtuoso.sesame2.driver.VirtuosoRepository;
 
 public class Bekendmakingen {
@@ -60,7 +62,7 @@ public class Bekendmakingen {
 	private static final Resource[] context = new Resource[1];
 	private RepositoryConnection con;
 	private Tidy parser;
-	
+	private PlacenameToURI locations;
 	
 	public Bekendmakingen() throws RepositoryException
 	{
@@ -78,6 +80,9 @@ public class Bekendmakingen {
 		parser.setXmlTags(true);
 		parser.setXmlOut(true);
 		parser.setInputEncoding("UTF-8");
+	
+		//setup location name resolving
+		locations = new PlacenameToURI();
 	}
 
 	/**
@@ -251,6 +256,22 @@ public class Bekendmakingen {
 		Node available = (Node) xpath.selectSingleNode(doc);
 		String availableDatum = available.getAttributes().getNamedItem("content").getNodeValue();
 		con.add(ikregeer_uri, vf.createURI(DCTerms.available.toString()), vf.createLiteral(availableDatum, XSD.date.toString()), context);
+		
+		
+		//extract full text from XML
+		xpath = new DOMXPath("//*']");
+		List<Node> nodes = xpath.selectNodes(doc);
+		String textContents = "";
+		for(Node node : nodes)
+		{
+			if (node.getFirstChild() != null ) textContents += node.getFirstChild().getNodeValue() + " ";
+			else textContents += node.getNodeValue();
+		}
+		
+		for(URI location : locations.getPlacenameURIs(textContents))
+		{
+			con.add(ikregeer_uri, vf.createURI(propertyBase+"isAboutLocation"), location, context);
+		}
 		
 		System.out.println("------------------------------------");
 	}

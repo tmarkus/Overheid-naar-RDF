@@ -1,5 +1,10 @@
 Volkomen ongesorteerd prioriteitenlijstje voor functionaliteit:
 
+
+- Detectie van plaatsnamen verbeteren, door al eerder herkende informatie in het document eruit te slopen (namen ministers bijv.)
+- Locatiegegevens van iedere plaats toevoegen aan repository
+- Detectie van plaatsnamen stricter maken, substrings niet toestaan
+
 Easy:
 - Bug fixen met genereren URI voor ikregeer misschien dat deze alleen kamervragen met antwoord heeft?
 - Matchen van naam aan kamerlid functie verbeteren (ook kunnen omgaan met voornaam+achteraanm combo's, of ook iets met partijnamen te doen die erachter staan)
@@ -15,3 +20,9 @@ Misc:
 - Presentielijsten van de kamerhandelingen kunnen parsen
 - Stemmingsuitslagen kamer kunnen inlezen en verwerken (alles: moties, wetsvoorstellen, etc)
 - Linkjes naar profielen volksvertegenwoordigers toevoegen (150vertegenwoordigers.nl, foaf:Site oid, persoonlijke site?)
+- stemmingen over moties
+- moties zelf
+- aanwezigheid in de kamer
+- wel/niet antwoord hebben gegeven op kamervragen
+- debatten in de kamer
+- wetsvoorstellen / moties / kamerstukken / en wetten koppelen aan elkaar
