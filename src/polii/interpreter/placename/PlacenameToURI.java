@@ -20,15 +20,21 @@ public class PlacenameToURI {
 	public Set<URI> getPlacenameURIs(String text)
 	{
 		
+		text = removeCommonSentences(text); 
+		
 		List<String> placeNamesList = new LinkedList<String>(placeNames.keySet());
 		Collections.sort(placeNamesList, new ComparatorStringLength());
 		Collections.reverse(placeNamesList);
 		
 		Set<URI> locationURIs = new HashSet<URI>();
 		
+		//System.out.println(text);
+		
 		for(String name : placeNamesList)
 		{
-			String regex = "(.*" + name+"[\\. \\?!;]+.*)|(.* " + name + ".*)"; 
+			String regex = "($|.*[\\. \\?!;]+)" + name+ "[\\. \\?!;]+.*"; 
+			//System.out.println(regex);
+			
 			if (text.matches(regex))
 			{
 				locationURIs.add(new URIImpl(geobase + placeNames.get(name) + "/"));
@@ -40,6 +46,22 @@ public class PlacenameToURI {
 	
 		return locationURIs;
 	}
+
+	/**
+	 * Method to remove common sentences which prevent proper location detection
+	 * @return
+	 */
 	
-	
+	public static String removeCommonSentences(String text)
+	{
+		text = text.replace("Bent u ", "");
+		text = text.replace("Wie heeft ", "");
+		text = text.replace("Nederland ", ""); //duh
+		text = text.replace("Postbank", ""); 
+		text = text.replace("Aan wie ", "");	text = text.replace("aan wie ", "");
+		text = text.replace("Partij voor de Dieren", "");
+		text = text.replace("Acht u ", "");
+		
+		return text;
+	}
 }
