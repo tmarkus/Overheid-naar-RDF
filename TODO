@@ -1,9 +1,8 @@
 Volkomen ongesorteerd prioriteitenlijstje voor functionaliteit:
 
 
+- Bij een ambiguee plaatsnaam, dit ook netjes in het repository aangeven
 - Detectie van plaatsnamen verbeteren, door al eerder herkende informatie in het document eruit te slopen (namen ministers bijv.)
-- Locatiegegevens van iedere plaats toevoegen aan repository
-- Detectie van plaatsnamen stricter maken, substrings niet toestaan
 
 Easy:
 - Bug fixen met genereren URI voor ikregeer misschien dat deze alleen kamervragen met antwoord heeft?

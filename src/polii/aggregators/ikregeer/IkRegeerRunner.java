@@ -9,7 +9,7 @@ import org.jaxen.JaxenException;
 import org.openrdf.repository.RepositoryException;
 import org.xml.sax.SAXException;
 
-import polii.aggregators.bekendmakingen.Bekendmakingen;
+import polii.aggregators.kamervragen.Kamervragen;
 
 public class IkRegeerRunner {
 
@@ -25,7 +25,7 @@ public class IkRegeerRunner {
 	public static void main(String[] args) throws RepositoryException, XPathExpressionException, JaxenException, URISyntaxException, IOException, SAXException {
 
 		IkRegeerToRDF aggregator = new IkRegeerToRDF();
-		Bekendmakingen bekenmakingen = new Bekendmakingen();
+		Kamervragen bekenmakingen = new Kamervragen();
 		
 		bekenmakingen.update();
 		

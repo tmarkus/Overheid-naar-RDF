@@ -1,4 +1,4 @@
-package polii.aggregators.bekendmakingen;
+package polii.aggregators.kamervragen;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,7 +51,7 @@ import polii.interpreter.politician.LastNameToPolitician;
 import utils.convert.geonames.Geonames2RDF;
 import virtuoso.sesame2.driver.VirtuosoRepository;
 
-public class Bekendmakingen {
+public class Kamervragen {
 
 	public static String base = "https://zoek.officielebekendmakingen.nl/";
 	private static String propertyBase = "http://politiek.thomasmarkus.nl/ontology/properties/";
@@ -64,7 +64,7 @@ public class Bekendmakingen {
 	private Tidy parser;
 	private PlacenameToURI locations;
 	
-	public Bekendmakingen() throws RepositoryException
+	public Kamervragen() throws RepositoryException
 	{
 		myRepository =  new VirtuosoRepository("jdbc:virtuoso://192.168.1.30:1111","dba","dba");
 		vf = myRepository.getValueFactory();
