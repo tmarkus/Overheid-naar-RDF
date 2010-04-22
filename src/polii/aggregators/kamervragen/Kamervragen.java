@@ -49,6 +49,7 @@ import polii.exceptions.ParliamentMemberNotFound;
 import polii.interpreter.placename.PlacenameToURI;
 import polii.interpreter.politician.LastNameToPolitician;
 import utils.convert.geonames.Geonames2RDF;
+import utils.xml.CommonXMLUtils;
 import virtuoso.sesame2.driver.VirtuosoRepository;
 
 public class Kamervragen {
@@ -222,12 +223,7 @@ public class Kamervragen {
 		//extraheer de tekstvalues aan wie de vraag is gesteld
 		xpath = new DOMXPath("//kamervraagomschrijving");
 		Node textNode = (Node) xpath.selectSingleNode(doc);
-		
-		String text = "";
-		for(int i=0; i < textNode.getChildNodes().getLength(); i++)
-		{
-			text += textNode.getChildNodes().item(i).getNodeValue();
-		}
+		String text = CommonXMLUtils.getFullText(textNode);
 		
 		//extraheer aan wie de vraag is gesteld (specifiek voor kamervragen)
 		Set<URI> questionDirectionAt = extractMinisterStaatssecretarissenFromString(text);
@@ -258,15 +254,7 @@ public class Kamervragen {
 		con.add(ikregeer_uri, vf.createURI(DCTerms.available.toString()), vf.createLiteral(availableDatum, XSD.date.toString()), context);
 		
 		
-		//extract full text from XML
-		xpath = new DOMXPath("//*']");
-		List<Node> nodes = xpath.selectNodes(doc);
-		String textContents = "";
-		for(Node node : nodes)
-		{
-			if (node.getFirstChild() != null ) textContents += node.getFirstChild().getNodeValue() + " ";
-			else textContents += node.getNodeValue();
-		}
+		String textContents = CommonXMLUtils.getFullText(doc);
 		
 		for(URI location : locations.getPlacenameURIs(textContents))
 		{

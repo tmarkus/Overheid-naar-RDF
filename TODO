@@ -1,5 +1,7 @@
 Volkomen ongesorteerd prioriteitenlijstje voor functionaliteit:
 
+- Stemmingsuitslagen kamer kunnen inlezen en verwerken (alles: moties, wetsvoorstellen, etc)
+-- gedeeltelijke implementatie met stemmingen over moties, informatie extractie gaat soms wel aardig, resultaten worden nog niet opgeslagen
 
 - Bij een ambiguee plaatsnaam, dit ook netjes in het repository aangeven
 - Detectie van plaatsnamen verbeteren, door al eerder herkende informatie in het document eruit te slopen (namen ministers bijv.)
@@ -17,9 +19,7 @@ Ikregeer.nl:
 Misc:
 - Parameter toevoegen voor soort documenten (kamervragen)
 - Presentielijsten van de kamerhandelingen kunnen parsen
-- Stemmingsuitslagen kamer kunnen inlezen en verwerken (alles: moties, wetsvoorstellen, etc)
 - Linkjes naar profielen volksvertegenwoordigers toevoegen (150vertegenwoordigers.nl, foaf:Site oid, persoonlijke site?)
-- stemmingen over moties
 - moties zelf
 - aanwezigheid in de kamer
 - wel/niet antwoord hebben gegeven op kamervragen

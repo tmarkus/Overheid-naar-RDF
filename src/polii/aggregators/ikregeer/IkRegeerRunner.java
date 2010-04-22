@@ -10,6 +10,7 @@ import org.openrdf.repository.RepositoryException;
 import org.xml.sax.SAXException;
 
 import polii.aggregators.kamervragen.Kamervragen;
+import polii.aggregators.moties.MotieStemmerExtractor;
 
 public class IkRegeerRunner {
 
@@ -26,8 +27,11 @@ public class IkRegeerRunner {
 
 		IkRegeerToRDF aggregator = new IkRegeerToRDF();
 		Kamervragen bekenmakingen = new Kamervragen();
+		MotieStemmerExtractor moties = new MotieStemmerExtractor();
 		
-		bekenmakingen.update();
+		
+		moties.update();
+		//bekenmakingen.update();
 		
 		//aggregator.updateDocuments();
 		//aggregator.updateParliament();
